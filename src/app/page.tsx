@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Spinner } from '@/components/ui/spinner'
-import { getUserInfo } from '@/apis/auth.page.api'
+import { getUserInfo,logout } from '@/apis/auth.page.api'
 import { formatErrorResponse } from '@/util/general.helper'
 import { Account } from '@/dtos/auth.page.dto'
 
@@ -48,6 +48,7 @@ export default function HomePage() {
   const handleLogout = async () => {
     try {
       // Clear cookies by calling logout endpoint if available
+      await logout()
       // For now, just redirect to login
       router.push('/login')
     } catch (err) {

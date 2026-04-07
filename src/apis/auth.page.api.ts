@@ -69,6 +69,20 @@ export async function handleOAuthCallback(code: string, state: string): Promise<
 }
 
 /**
+ * Logout user by clearing cookies (handled server-side)
+ * Frontend can just redirect to login page after calling this
+ */
+export async function logout(): Promise<void> {
+  try {
+    await axiosInstance.post('/api/secure/auth/account/logout')
+  } catch (error) {
+    console.error('Logout API error:', error)
+    throw error
+  }
+}
+
+
+/**
  * Get authenticated user account info
  * Requires valid JWT token in cookies
  */
