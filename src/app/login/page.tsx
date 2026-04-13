@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Spinner } from '@/components/ui/spinner'
-import { loginWithEmail, getOAuthRedirectUrl } from '@/apis/auth.page.api'
+import { authApi } from '@/apis/auth.page.api'
 import { formatErrorResponse } from '@/util/general.helper'
 
 export default function LoginPage() {
@@ -25,7 +25,7 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
-      await loginWithEmail({ email, password })
+      await authApi.loginWithEmail({ email, password })
       // Success - redirect to dashboard or home
       router.push('/')
     } catch (err) {
@@ -41,10 +41,10 @@ export default function LoginPage() {
     setOauthLoading(provider)
 
     try {
-      const data = await getOAuthRedirectUrl(provider)
+      const data = await authApi.getOAuthRedirectUrl(provider)
       // Redirect to the OAuth provider
-      if (data.redirectUrl) {
-        window.location.href = data.redirectUrl
+      if (data.url) {
+        window.location.href = data.url
       } else {
         setError(`No redirect URL received from ${provider}.`)
       }

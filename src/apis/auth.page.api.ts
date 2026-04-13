@@ -2,97 +2,41 @@ import { axiosInstance } from '@/util/axios.helper'
 import {
   LoginRequest,
   RegisterRequest,
-  OAuthAuthorizeRequest,
-  OAuthCallbackRequest,
   Account,
   AuthResponse,
   OAuthUrlResponse,
 } from '@/dtos/auth.page.dto'
+export const authApi = {
+  loginWithEmail: async (credentials: LoginRequest): Promise<AuthResponse> => {
+    const response = await axiosInstance.post<AuthResponse>('/api/public/auth/account/authenticate', credentials);
+    return response.data;
+  },
 
-/**
- * Login with email and password
- * Backend sets JWT tokens as HTTP-only cookies
- */
-export async function loginWithEmail(credentials: LoginRequest): Promise<AuthResponse> {
-  try {
-    const response = await axiosInstance.post<AuthResponse>('/api/public/auth/account/authenticate', credentials)
-    return response.data
-  } catch (error) {
-    console.error('Login API error:', error)
-    throw error
-  }
-}
+  registerWithEmail: async (credentials: RegisterRequest): Promise<AuthResponse> => {
+    const response = await axiosInstance.post<AuthResponse>('/api/public/auth/account/register', credentials);
+    return response.data;
+  },
 
-/**
- * Register new account with email, password, and full name
- */
-export async function registerWithEmail(credentials: RegisterRequest): Promise<AuthResponse> {
-  try {
-    const response = await axiosInstance.post<AuthResponse>('/api/public/auth/account/register', credentials)
-    return response.data
-  } catch (error) {
-    console.error('Register API error:', error)
-    throw error
-  }
-}
-
-/**
- * Get OAuth provider authorization URL
- * Returns redirect URL to the OAuth provider
- */
-export async function getOAuthRedirectUrl(provider: 'google' | 'facebook'): Promise<OAuthUrlResponse> {
-  try {
+  getOAuthRedirectUrl: async (provider: 'google' | 'facebook'): Promise<OAuthUrlResponse> => {
     const response = await axiosInstance.get<OAuthUrlResponse>('/api/public/oauth2/authorize', {
       params: { provider },
-    })
-    return response.data
-  } catch (error) {
-    console.error(`Get ${provider} OAuth URL error:`, error)
-    throw error
-  }
-}
+    });
+    return response.data;
+  },
 
-/**
- * Handle OAuth provider callback
- * Backend sets JWT tokens as HTTP-only cookies
- */
-export async function handleOAuthCallback(code: string, state: string): Promise<AuthResponse> {
-  try {
+  handleOAuthCallback: async (code: string, state: string): Promise<AuthResponse> => {
     const response = await axiosInstance.get<AuthResponse>('/api/public/oauth2/callback', {
       params: { code, state },
-    })
-    return response.data
-  } catch (error) {
-    console.error('OAuth callback error:', error)
-    throw error
-  }
-}
+    });
+    return response.data;
+  },
 
-/**
- * Logout user by clearing cookies (handled server-side)
- * Frontend can just redirect to login page after calling this
- */
-export async function logout(): Promise<void> {
-  try {
-    await axiosInstance.post('/api/secure/auth/account/logout')
-  } catch (error) {
-    console.error('Logout API error:', error)
-    throw error
-  }
-}
+  getUserInfo: async (): Promise<Account> => {
+    const response = await axiosInstance.get<any>('/api/secure/user/info');
+    return response.data?.data ?? response.data;
+  },
 
-
-/**
- * Get authenticated user account info
- * Requires valid JWT token in cookies
- */
-export async function getUserInfo(): Promise<Account> {
-  try {
-    const response = await axiosInstance.get<AuthResponse>('/api/secure/auth/account/info')
-    // Handle both direct Account response and wrapped response with data property
-    return response.data.data || response.data
-  } catch (error) {
-    console.error('Get user info error:', error)
-    throw error
+  logout: async (): Promise<void> => {
+    await axiosInstance.post<any>('/api/secure/auth/account/logout');
   }
 }
