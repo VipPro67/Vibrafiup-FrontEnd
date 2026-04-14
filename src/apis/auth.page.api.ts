@@ -6,37 +6,46 @@ import {
   AuthResponse,
   OAuthUrlResponse,
 } from '@/dtos/auth.page.dto'
-export const authApi = {
-  loginWithEmail: async (credentials: LoginRequest): Promise<AuthResponse> => {
-    const response = await axiosInstance.post<AuthResponse>('/api/public/auth/account/authenticate', credentials);
-    return response.data;
-  },
+import { CSecurity } from '@/util/constant';
 
-  registerWithEmail: async (credentials: RegisterRequest): Promise<AuthResponse> => {
-    const response = await axiosInstance.post<AuthResponse>('/api/public/auth/account/register', credentials);
-    return response.data;
-  },
+export class AuthAPI {
 
-  getOAuthRedirectUrl: async (provider: 'google' | 'facebook'): Promise<OAuthUrlResponse> => {
-    const response = await axiosInstance.get<OAuthUrlResponse>('/api/public/oauth2/authorize', {
+  static async loginWithEmail(credentials: LoginRequest): Promise<AuthResponse> {
+    const uri = CSecurity.API.PREFIX_PUBLIC + '/auth/account/authenticate';
+    const response = await axiosInstance.post<AuthResponse>(uri, credentials);
+    return response.data;
+  }
+
+  static async registerWithEmail(credentials: RegisterRequest): Promise<AuthResponse> {
+    const uri = CSecurity.API.PREFIX_PUBLIC + '/auth/account/register';
+    const response = await axiosInstance.post<AuthResponse>(uri, credentials);
+    return response.data;
+  }
+
+  static async getOAuthRedirectUrl(provider: 'google' | 'facebook'): Promise<OAuthUrlResponse> {
+    const uri = CSecurity.API.PREFIX_PUBLIC + '/oauth2/authorize';
+    const response = await axiosInstance.get<OAuthUrlResponse>(uri, {
       params: { provider },
     });
     return response.data;
-  },
+  }
 
-  handleOAuthCallback: async (code: string, state: string): Promise<AuthResponse> => {
-    const response = await axiosInstance.get<AuthResponse>('/api/public/oauth2/callback', {
+  static async handleOAuthCallback(code: string, state: string): Promise<AuthResponse> {
+    const uri = CSecurity.API.PREFIX_PUBLIC + '/oauth2/callback';
+    const response = await axiosInstance.get<AuthResponse>(uri, {
       params: { code, state },
     });
     return response.data;
-  },
-
-  getUserInfo: async (): Promise<Account> => {
-    const response = await axiosInstance.get<any>('/api/secure/user/info');
-    return response.data?.data ?? response.data;
-  },
-
-  logout: async (): Promise<void> => {
-    await axiosInstance.post<any>('/api/secure/auth/account/logout');
   }
+
+  static async getUserInfo(): Promise<Account> {
+    const uri = CSecurity.API.PREFIX_SECURE + '/user/info';
+    const response = await axiosInstance.get(uri);
+    return response.data?.data ?? response.data;
+  }
+
+  static async logout(): Promise<void> {
+    await axiosInstance.post('/api/secure/auth/account/logout');
+  }
+
 }
