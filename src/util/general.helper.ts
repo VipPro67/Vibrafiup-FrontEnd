@@ -61,3 +61,10 @@ export function formatErrorResponse(error: any): string {
   }
   return getErrorMessage(error)
 }
+
+export class FormUtil {
+  
+  static isPassedValidation(validation: Record<string, string>): boolean {
+    return Object.values(validation).every(msg => msg.trim().length === 0);
+  }
+}
