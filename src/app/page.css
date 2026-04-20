@@ -1,0 +1,211 @@
+.root {
+  background-color: var(--light-background);
+  display: flex;
+  width: 100%;
+
+  .home {
+    width: 100%;
+    position: relative;
+
+    .frame {
+
+      .header {
+        padding: 15px 40px 5px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        .logo {
+          display: flex;
+          align-items: center;
+          padding: 0 30px;
+
+          .logo_main {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            background-color: var(--foreground);
+            color: var(--background);
+
+            img {
+              width: 100%;
+              height: 100%;
+              box-shadow: 4px 4px 0 0 var(--home-orange-1);
+            }
+          }
+
+          .logo_name {
+            color: var(--foreground);
+            font-size: 1.2rem;
+            font-weight: 500;
+          }
+        }
+
+        .menu {
+          flex: 1;
+
+          .menu_item {
+            margin: 0 10px;
+            padding: 5px;
+            border-radius: 10px;
+
+            &:hover {
+              background-color: var(--background-hovered);
+            }
+          }
+        }
+
+        .home-buttons {
+
+          .get-apps {
+            background-color: var(--foreground);
+            color: var(--background);
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+
+            &:hover {
+              background-color: var(--foreground-hovered);
+            }
+          }
+        }
+      }
+    }
+
+    .container {
+      background-color: var(--background);
+      border-radius: 8px;
+      margin: 15px;
+      min-height: 700px;
+      padding: 15px;
+
+      .referral-and-forms {
+        display: flex;
+        align-items: center;
+        max-height: 100%;
+        padding: 40px;
+
+        .referral {
+          flex: 1;
+          height: 100%;
+          display: flex;
+          align-items: start;
+          flex-direction: column;
+          justify-content: center;
+
+          .referral_title {
+            color: var(--home-grey-2);
+            font-size: 1.2rem;
+          }
+
+          .referral_content {
+            font-size: 5rem;
+            color: var(--foreground);
+
+            .content_highlighted {
+              display: block;
+              width: 100%;
+              color: var(--home-orange-1);
+            }
+          }
+        }
+
+        .forms-container {
+          display: flex;
+          flex: 1;
+          align-items: center;
+          justify-content: center;
+
+          .forms-container_frame {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--light-background);
+            padding: 40px 0;
+            border-radius: 10px;
+            width: 100%;
+            min-width: 200px;
+            max-width: 500px;
+
+            .forms-mode,
+            form {
+              width: 80%;
+            }
+
+            .forms-mode {
+              display: flex;
+              justify-content: start;
+              gap: 15px;
+              margin-bottom: 25px;
+              border-bottom: 1px solid var(--home-grey-2);
+
+              .forms-mode_modes {
+                padding: 8px 12px;
+                cursor: pointer;
+                color: var(--home-grey-2);
+                font-weight: 500;
+                transition: all 0.3s ease;
+                position: relative;
+
+                &:hover {
+                  color: var(--foreground);
+                }
+
+                &.active {
+                  color: var(--home-orange-1);
+
+                  &::after {
+                    content: "";
+                    position: absolute;
+                    bottom: -1px;
+                    left: 0;
+                    width: 100%;
+                    height: 3px;
+                    background-color: var(--home-orange-1);
+                    border-radius: 3px 3px 0 0;
+                  }
+                }
+              }
+            }
+
+            .oauth2-buttons {
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+
+            .oauth-btn {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 45px;
+              height: 45px;
+              padding: 8px;
+              border-radius: 50%;
+              margin: 0 4px;
+
+              background-color: var(--background);
+              color: var(--home-orange-1);
+              border: 1px solid var(--home-orange-1);
+
+              cursor: pointer;
+              transition: all 0.2s ease-in-out;
+
+              &:hover {
+                color: white;
+                background-color: var(--home-orange-1);
+              }
+
+              & svg {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
