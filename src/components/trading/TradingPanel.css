@@ -1,0 +1,106 @@
+.tradingpanel {
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: 0.9rem;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  box-shadow: 0 14px 32px -20px rgb(15 23 42 / 0.45);
+
+  .tradingpanel_header {
+    margin-bottom: 1.5rem;
+  }
+
+  .tradingpanel_header-title {
+    margin: 0;
+    color: #111827;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .tradingpanel_header-price {
+    margin: 0.5rem 0 0;
+    color: #4b5563;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  .tradingpanel_actions {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .tradingpanel_actions-button {
+    width: 100%;
+    min-height: 3.25rem;
+    padding: 0.85rem 1rem;
+    border-radius: 0.75rem;
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.35;
+    font-weight: 700;
+    letter-spacing: 0.015em;
+    transition: transform 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #93c5fd;
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+  }
+
+  .tradingpanel_actions-button-up {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    box-shadow: 0 10px 22px -12px rgb(22 163 74 / 0.9);
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+    }
+  }
+
+  .tradingpanel_actions-button-down {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    box-shadow: 0 10px 22px -12px rgb(239 68 68 / 0.85);
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    }
+  }
+
+  .tradingpanel_actions-button-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .tradingpanel_info {
+    margin-top: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid #dbeafe;
+    background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%);
+    padding: 0.95rem 1rem;
+  }
+
+  .tradingpanel_info-text {
+    margin: 0;
+    color: #1e3a8a;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .tradingpanel_info-label {
+    font-weight: 700;
+  }
+}

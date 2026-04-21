@@ -1,0 +1,78 @@
+
+.trading-stats {
+  display: flex;
+  flex: wrap;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  
+  .stats-info {
+    flex: 1;
+    
+    .title {
+      font-size: 0.85rem;
+      color: var(--home-grey-4);
+      position: relative;
+      display: block;
+
+      &::after {
+        position: absolute;
+        background-color: var(--home-grey-2);
+        display: block;
+        content: "";
+        width: 80%;
+        height: 0.05rem;
+        bottom: 0;
+      }
+    }
+  
+    .value {
+
+      .annual-value {
+        font-size: 1.1rem;
+        font-weight: 500;
+        padding-right: 4px;
+      }
+
+      .raw-value {
+        font-size: 0.8rem;
+        color: var(--home-grey-3);
+      }
+    }
+  }
+
+  .totalTrades {
+    .annual-value {
+      color: var(--home-blue-2);
+    }
+  }
+  .winRate {
+    .annual-value {
+      color: var(--home-green-4);
+    }
+  }
+  .wins {
+    .annual-value {
+      color: var(--home-green-4);
+    }
+  }
+  .losses {
+    .annual-value {
+      color: var(--home-red-1);
+    }
+  }
+  .totalProfit {
+    .annual-value {
+      color: var(--home-red-1);
+    }
+  }
+  .totalLoss {
+    .annual-value {
+      color: var(--home-red-1);
+    }
+  }
+  .netProfit {
+    .annual-value {
+      color: var(--home-green-4);
+    }
+  }
+}

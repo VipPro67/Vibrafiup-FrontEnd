@@ -7,6 +7,7 @@ import { AuthAPI } from '@/apis/auth.page.api'
 import { formatErrorResponse } from '@/util/general.helper'
 import '@/app/page.css'
 import Image from 'next/image'
+import LoginForm from '@/app-reused/form/login/main'
 // import LoginForm from '@/app-reused/form/login/main'
 // import RegisterForm from '@/app-reused/form/register/main'
 
@@ -94,8 +95,8 @@ export default function ReferralPage() {
                     onClick={() => setFormMode(formModes[2])}>Forgot Password</span>
                 </div>
 
-                {/* {formMode === formModes[0] && <LoginForm />}
-                {formMode === formModes[1] && <RegisterForm />} */}
+                {formMode === formModes[0] && <LoginForm /> }
+                {/* {formMode === formModes[1] && <RegisterForm />} } */}
                 {formMode === formModes[2] && <></>}
               </div>
             </div>

@@ -5,7 +5,7 @@ import Sidebar from '@/components/trading/Sidebar'
 import { TradingChart } from '@/components/trading/TradingChart'
 import { TradingPanel } from '@/components/trading/TradingPanel'
 import { TradingHistory } from '@/components/trading/TradingHistory'
-import { TradingStats } from '@/components/trading/TradingStats'
+import TradingStats from '@/components/trading/TradingStats'
 import {
   generateInitialCandles,
   generateNewCandle,
@@ -25,15 +25,6 @@ export default function TradingPage() {
   const [candles, setCandles] = useState<CandleData[]>([])
   const [currentPrice, setCurrentPrice] = useState(100)
   const [trades, setTrades] = useState<Trade[]>([])
-  const [stats, setStats] = useState<TradingStatsType>({
-    totalTrades: 0,
-    winTrades: 0,
-    lossTrades: 0,
-    winRate: 0,
-    totalProfit: 0,
-    totalLoss: 0,
-    netProfit: 0,
-  })
   const [isTrading, setIsTrading] = useState(false)
   const [pendingSettlement, setPendingSettlement] = useState<Map<string, NodeJS.Timeout>>(new Map())
 
@@ -108,11 +99,6 @@ export default function TradingPage() {
     [currentPrice, isTrading]
   )
 
-  // Update stats whenever trades change
-  useEffect(() => {
-    setStats(calculateStats(trades))
-  }, [trades])
-
   // Cleanup timeouts on unmount
   useEffect(() => {
     return () => {
@@ -150,7 +136,7 @@ export default function TradingPage() {
           {/* Right Column - Stats and History */}
           <div className="space-y-6">
             {/* Statistics */}
-            <TradingStats stats={stats} />
+            <TradingStats />
 
               {/* Trading History */}
               <TradingHistory trades={trades} />

@@ -1,0 +1,212 @@
+You are an AI coding assistant (focusing on Frontend UI/UX and mock Backend to support it) for a Next.js project.
+
+## Tech constraints
+- Use TypeScript React (.tsx) for pages.
+- Use TypeScript React (.tsx) for components.
+- Use TypeScript (.ts) for services of components.
+- Styling uses plain CSS with nesting syntax (PostCSS-compatible)
+
+## CSS Nesting Rules
+- Write CSS using nested structure for readability
+- Nest child classes inside parent blocks
+
+Example: ```
+.tradepanel {
+  /* parent styles */
+
+  .tradepanel_header {
+    /* child */
+  }
+
+  .tradepanel_header-title {
+    /* child */
+  }
+}
+```
+
+## IMPORTANT
+- Communication layer should be separated in multiple aspects: API, DTO, Util, Constants.
+- For DTO Request should be "class", for DTO Response should be "interface".
+- Should define APIResponse.
+- Services (form validation, formating,...), Utils contain logical codes should be in class (with static methods) for OOP.
+
+## CSS rules
+- Nested CSS must be valid for PostCSS nesting plugin
+- Max nesting depth: 2 levels
+- Always use full class names (NO shorthand like &-title)
+- Defind color in a :root, and separate all of them in body.light and body.dark context
+
+
+## Naming convention
+- Directory: <entity>.<page>.<type>.<file-type>
+- Directory Example: user.page.api.ts, user.page.dto.ts, user.page.tsx, user.page.css, user.page.service.ts
+- CSS Class Format: parent_sub-class
+- CSS Class Example:
+  .tradepanel_header
+  .tradepanel_header-title
+- DTO Example: UserDTO (for both request, response), SearchUserRes, SearchUserReq.
+- API Example: ```
+export class LoginPageAPI {
+  async static authenticate(request: AuthReq): Promise<APIResponse<Void> | unknown> {
+    //..fake logic
+  }
+}
+```
+
+## Output Code rules
+- Prefer nested CSS format
+- Keep structure clean and grouped
+- Optimize for readability and refactorability
+
+## When necessary
+- If environment does NOT support nesting:
+  → automatically convert to flat CSS:
+    .parent .child {}
+
+## Biz
+```
+BET/ROUND SYSTEM – CODE RULES (FINAL, DB-ALIGNED)
+
+1. CORE PRINCIPLE
+* Server authoritative (time, price, result)
+* Ledger = source of truth (money tracking)
+* Redis = realtime only (NOT persistent)
+* UI = visualization layer (no logic trust)
+
+2. ROUND LIFECYCLE
+
+STATUS FLOW:
+OPEN → LOCKED → CALCULATING → SETTLED
+
+TIMING:
+* total: 30s
+* OPEN: 0–25s (bet allowed)
+* LOCKED: 25–30s (no bet)
+* CALCULATING: short delay (UX effect)
+* SETTLED: final result
+
+3. BET RULES
+* 1 user = 1 bet / round (UNIQUE constraint)
+* Validate:
+  * đủ balance
+  * round = OPEN
+  * chưa bet
+  * không vượt limit
+
+FIELDS:
+* bet_side: UP | DOWN
+* stake
+* entry_price (snapshot tại thời điểm bet)
+* payout (final receive, NOT pre-calculated)
+
+4. PRICE RULES
+
+* Source: Binance (WebSocket)
+* Fallback: REST
+* open_price = first tick sau ROUND_START
+* close_price = last tick trước ROUND_END
+* NEVER trust client price
+
+5. RESULT RULES
+* close > open → UP win
+* close < open → DOWN win
+* close = open → DRAW (refund)
+
+6. POOL & PAYOUT
+* total_pool = total_up + total_down
+* payout_dynamic:
+  payout = stake * (total_pool / winning_pool)
+* Store:
+  payout vào Bets sau khi SETTLED
+
+7. WALLET + LEDGER
+ENTRY TYPES:
+* BET_LOCK
+* BET_WIN
+* BET_LOSE
+* BET_REFUND
+* DEPOSIT
+* WITHDRAW
+
+FLOW:
+BET:
+* balance -= stake
+* locked += stake
+* ledger: BET_LOCK
+
+SETTLE:
+* WIN:
+  locked -= stake
+  balance += payout
+  ledger: BET_WIN
+* LOSE:
+  locked -= stake
+  ledger: BET_LOSE
+* DRAW:
+  locked -= stake
+  balance += stake
+  ledger: BET_REFUND
+
+8. ROUND DATA (IMPORTANT)
+
+STORE IN DB:
+* open_price
+* close_price
+* total_up_amount
+* total_down_amount
+
+PURPOSE:
+* audit
+* fairness
+* fast query (no aggregation)
+
+9. REDIS (REALTIME ONLY)
+
+STORE:
+* price stream
+* round countdown
+* total_up/down (temporary)
+* sentiment %
+
+DO NOT STORE:
+* final result
+* wallet data
+
+10. ANTI-EXPLOIT
+* Bet lock buffer (block last-second bet)
+* Idempotent bet (unique bet_id)
+* Server time sync
+* Price snapshot (no manipulation)
+* No client authority
+
+11. AI (OPTIONAL, SUPPORT ONLY)
+OUTPUT:
+* trend: UP | DOWN
+* strength: weak | medium | strong
+* risk: low | medium | high
+
+RULE:
+* NOT used for result
+* NOT stored in DB
+* ONLY for UI hint
+
+12. UI/UX RULES
+
+MUST HAVE:
+* realtime price + chart
+* countdown timer
+* UP / DOWN buttons
+* amount input
+
+GOOD TO HAVE:
+* sentiment (% UP/DOWN)
+* entry price display
+* win/lose animation
+* streak effect
+
+13. CORE INSIGHT
+* Đây là game xác suất + tâm lý
+* Không phải trading system
+* Backend phải giống tài chính
+* Frontend phải giống game
+```
