@@ -100,9 +100,41 @@ export default function ReferralPage() {
                 {formMode === formModes[2] && <></>}
               </div>
             </div>
+            <FakeChart />
           </div>
         </div>
       </div>
     </div>
   )
+}
+
+function FakeChart() {
+  return <div className="fake-chart-refferal">
+    <div className="bar" style={{ height: '15%' }}></div>
+    <div className="bar" style={{ height: '10%' }}></div>
+    <div className="bar" style={{ height: '7%' }}></div>
+    <div className="bar" style={{ height: '12%' }}></div>
+    <div className="bar" style={{ height: '15%' }}></div>
+    <div className="bar" style={{ height: '6%' }}></div>
+    <div className="bar" style={{ height: '8%' }}></div>
+    <div className="bar" style={{ height: '12%' }}></div>
+    <div className="bar" style={{ height: '8%' }}></div>
+    <div className="bar" style={{ height: '13%' }}></div>
+    <div className="bar" style={{ height: '15%' }}></div>
+    <div className="bar" style={{ height: '20%' }}></div>
+    <div className="bar" style={{ height: '18%' }}></div>
+    <div className="bar" style={{ height: '30%' }}></div>
+    <div className="bar" style={{ height: '40%' }}></div>
+    <div className="bar" style={{ height: '38%' }}></div>
+    <div className="bar" style={{ height: '43%' }}></div>
+    <div className="bar" style={{ height: '62%' }}></div>
+    <div className="bar" style={{ height: '74%' }}></div>
+    <div className="bar" style={{ height: '85%' }}></div>
+    <div className="bar highlighted" style={{ height: '95%' }}></div>
+    <div className="bar" style={{ height: '50%' }}></div>
+    <div className="bar" style={{ height: '55%' }}></div>
+    <div className="bar" style={{ height: '25%' }}></div>
+    <div className="bar" style={{ height: '30%' }}></div>
+    <div className="bar" style={{ height: '15%' }}></div>
+  </div>
 }

@@ -1,4 +1,4 @@
-import { axiosInstance } from '@/util/axios.helper'
+import { axiosInstance, GeneralAPIHelper } from '@/util/axios.helper'
 import {
   LoginRequest,
   RegisterRequest,
@@ -7,13 +7,18 @@ import {
   OAuthUrlResponse,
 } from '@/dtos/auth.page.dto'
 import { CSecurity } from '@/util/constant';
+import { APIResponse } from '@/dtos/general.dto';
 
 export class AuthAPI {
 
-  static async loginWithEmail(credentials: LoginRequest): Promise<AuthResponse> {
-    const uri = CSecurity.API.PREFIX_PUBLIC + '/auth/account/authenticate';
-    const response = await axiosInstance.post<AuthResponse>(uri, credentials);
-    return response.data;
+  static async loginWithEmail(credentials: LoginRequest): Promise<APIResponse<null>> {
+    try {
+      const uri = CSecurity.API.PREFIX_PUBLIC + '/auth/account/authenticate';
+      const res = await axiosInstance.post<APIResponse<null>>(uri, credentials);
+      return res.data;
+    } catch(e: any) {
+      return GeneralAPIHelper.handleErrorAndToast(e);
+    }
   }
 
   static async registerWithEmail(credentials: RegisterRequest): Promise<AuthResponse> {

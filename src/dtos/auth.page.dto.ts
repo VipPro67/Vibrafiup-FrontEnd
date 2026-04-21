@@ -1,8 +1,14 @@
 // Auth Request/Response DTOs
 
-export interface LoginRequest {
-  email: string
-  password: string
+export class LoginRequest {
+  email!: string
+  password!: string
+
+  static withBuilder(): LoginRequest {
+    return new LoginRequest();
+  }
+  bemail(email: string): LoginRequest { this.email = email; return this; }
+  bpassword(password: string): LoginRequest { this.password = password; return this; }
 }
 
 export interface RegisterRequest {

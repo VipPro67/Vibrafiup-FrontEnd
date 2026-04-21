@@ -37,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="root font-sans antialiased dark">
+      <body className="root font-sans antialiased">
         {children}
         <Toaster position="top-right" reverseOrder={false} />
         <Analytics />

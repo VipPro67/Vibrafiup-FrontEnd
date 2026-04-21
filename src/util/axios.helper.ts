@@ -1,4 +1,6 @@
+import { APIResponse } from '@/dtos/general.dto'
 import axios, { AxiosInstance, AxiosError } from 'axios'
+import toast from 'react-hot-toast'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080'
 
@@ -37,3 +39,48 @@ axiosInstance.interceptors.response.use(
 )
 
 export default axiosInstance
+
+export class GeneralAPIHelper {
+
+  static handleErrorAndToast(error: unknown): APIResponse<null> {
+    const response = this.handleError(error) as APIResponse<null>;
+    toast.error(response.msg);
+    return response;
+  }
+
+  static handleError(error: unknown): APIResponse<null> {
+    if (axios.isAxiosError(error)) {
+      const serverResponse = error.response?.data;
+      if (serverResponse && serverResponse.code) {
+        return {
+          status: String(
+            typeof serverResponse.status === 'number'
+              ? serverResponse.status
+              : (error.response?.status ?? 500)
+          ),
+          code: serverResponse.code,
+          msg: serverResponse.msg || 'An unexpected error occurred',
+          time: serverResponse.time || new Date().toISOString(),
+          data: null,
+        };
+      }
+
+      return {
+        status: String(error.response?.status ?? 0),
+        code: 'NETWORK_ERROR',
+        msg: error.message || 'Cannot connect to server',
+        time: new Date().toISOString(),
+        data: null,
+      };
+    }
+
+    return {
+      status: '500',
+      code: 'UNKNOWN_ERROR',
+      msg: 'An unknown error occurred',
+      time: new Date().toISOString(),
+      data: null,
+    };
+  }
+  
+}
