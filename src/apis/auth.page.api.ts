@@ -2,6 +2,7 @@ import { axiosInstance, GeneralAPIHelper } from '@/util/axios.helper'
 import {
   LoginRequest,
   RegisterRequest,
+  ForgotPassOTPRequest,
   Account,
   AuthResponse,
   OAuthUrlResponse,
@@ -16,23 +17,41 @@ export class AuthAPI {
       const uri = CSecurity.API.PREFIX_PUBLIC + '/auth/account/authenticate';
       const res = await axiosInstance.post<APIResponse<null>>(uri, credentials);
       return res.data;
-    } catch(e: any) {
+    } catch(e: unknown) {
       return GeneralAPIHelper.handleErrorAndToast(e);
     }
   }
 
-  static async registerWithEmail(credentials: RegisterRequest): Promise<AuthResponse> {
-    const uri = CSecurity.API.PREFIX_PUBLIC + '/auth/account/register';
-    const response = await axiosInstance.post<AuthResponse>(uri, credentials);
-    return response.data;
+  static async registerWithEmail(credentials: RegisterRequest): Promise<APIResponse<null>> {
+    try {
+      const uri = CSecurity.API.PREFIX_PUBLIC + '/auth/account/register';
+      const res = await axiosInstance.post<APIResponse<null>>(uri, credentials);
+      return res.data;
+    } catch(e: unknown) {
+      return GeneralAPIHelper.handleErrorAndToast(e);
+    }
   }
 
-  static async getOAuthRedirectUrl(provider: 'google' | 'facebook'): Promise<OAuthUrlResponse> {
-    const uri = CSecurity.API.PREFIX_PUBLIC + '/oauth2/authorize';
-    const response = await axiosInstance.get<OAuthUrlResponse>(uri, {
-      params: { provider },
-    });
-    return response.data;
+  static async sendForgotPassOTP(request: ForgotPassOTPRequest): Promise<APIResponse<null>> {
+    try {
+      const uri = CSecurity.API.PREFIX_PUBLIC + '/auth/account/forgot-pass/send-otp';
+      const res = await axiosInstance.post<APIResponse<null>>(uri, request);
+      return res.data;
+    } catch(e: unknown) {
+      return GeneralAPIHelper.handleErrorAndToast(e);
+    }
+  }
+
+  static async getOAuthRedirectUrl(provider: string): Promise<APIResponse<OAuthUrlResponse | null>> {
+    try {
+      const uri = CSecurity.API.PREFIX_PUBLIC + '/oauth2/authorize';
+      const response = await axiosInstance.get<APIResponse<OAuthUrlResponse>>(uri, {
+        params: { provider },
+      });
+      return response.data;
+    } catch(e: unknown) {
+      return GeneralAPIHelper.handleErrorAndToast(e);
+    }
   }
 
   static async handleOAuthCallback(code: string, state: string): Promise<AuthResponse> {

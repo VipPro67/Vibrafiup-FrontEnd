@@ -3,6 +3,12 @@ import { useCallback, useState } from 'react';
 import { LoginFormSvc } from './service';
 import { FormUtil } from '@/util/general.helper';
 import toast from 'react-hot-toast';
+import { AuthAPI } from '@/apis/auth.page.api';
+import { APIResponse } from '@/dtos/general.dto';
+import { LoginRequest, OAuthUrlResponse } from '@/dtos/auth.page.dto';
+import { LoginFormMsg } from '@/util/message.helper';
+import { GeneralAPIHelper } from '@/util/axios.helper';
+import { CContext } from '@/util/constant';
 
 export default function LoginForm() {
   const [email, setEmail] = useState<string>("")
@@ -17,7 +23,7 @@ export default function LoginForm() {
     async function postReq() {
       /* // Example for updating form (submit without touching on existing values)
       if (!isFormTouched) {
-        toast.error("Please fill information!");
+        toast.error(GeneralMsg.invalid_empty_form || GeneralMsg.default_err_validation));
         return;
       }*/
 
@@ -26,16 +32,26 @@ export default function LoginForm() {
         return;
       }
 
-      // const request = LoginRequest.withBuilder().bemail(email).bpassword(pass);
-      // const response = await AuthAPI.loginWithEmail(request) as APIResponse<null>
-      // if (String(response.status).startsWith("2")) {
-      //   toast.success("Welcome back!");
-      //   window.location.href = "/trading";
-      //   return;
-      // }
+      const request = LoginRequest.withBuilder().bemail(email).bpassword(pass);
+      const response = await AuthAPI.loginWithEmail(request) as APIResponse<null>
+      if (GeneralAPIHelper.validResponse(response)) {
+        toast.success(LoginFormMsg.wellcome);
+        window.location.href = CContext.PAGES.TRADE;
+        return;
+      }
     }
     postReq();
-  }, [validation]);
+  }, [validation, email, pass]);
+
+  const authenticateOauth2Account = useCallback((provider: string) => {
+    async function auth() {
+      const response = await AuthAPI.getOAuthRedirectUrl(provider) as APIResponse<OAuthUrlResponse>
+      if (GeneralAPIHelper.validResponse(response)) {
+        window.location.href = response.data.url;
+      }
+    }
+    auth();
+  }, []);
 
   const onChangeEmail = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -68,10 +84,10 @@ export default function LoginForm() {
     <span className="form-separator">OR</span>
     <div className="oauth2-buttons">
       <button className="oauth-btn oauth2-gg" title="Google">
-        <GoogleButtonIcon />
+        <GoogleButtonIcon onClick={() => authenticateOauth2Account(CContext.OAUTH2.GOOGLE)}/>
       </button>
       <button className="oauth-btn oauth2-fb" title="Facebook">
-        <FacebookButtonIcon />
+        <FacebookButtonIcon onClick={() => authenticateOauth2Account(CContext.OAUTH2.FACEBOOK)} />
       </button>
       <button className="oauth-btn oauth2-gh" title="Github">
         <GithubButtonIcon />

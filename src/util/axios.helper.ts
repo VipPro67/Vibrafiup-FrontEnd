@@ -82,5 +82,8 @@ export class GeneralAPIHelper {
       data: null,
     };
   }
-  
+ 
+  static validResponse(response: APIResponse<unknown>): boolean {
+    return String(response.status).startsWith("2");
+  }
 }

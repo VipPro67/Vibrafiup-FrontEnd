@@ -11,10 +11,24 @@ export class LoginRequest {
   bpassword(password: string): LoginRequest { this.password = password; return this; }
 }
 
-export interface RegisterRequest {
-  email: string
-  password: string
-  fullName: string
+export class RegisterRequest {
+  email!: string
+  password!: string
+  dob!: string
+  fullName!: string
+
+  static withBuilder(): RegisterRequest { return new RegisterRequest(); }
+  bemail(email: string): RegisterRequest { this.email = email; return this; }
+  bpassword(password: string): RegisterRequest { this.password = password; return this; }
+  bdob(dob: string): RegisterRequest { this.dob = dob; return this; }
+  bfullName(fullName: string): RegisterRequest { this.fullName = fullName; return this; }
+}
+
+export class ForgotPassOTPRequest {
+  email!: string
+
+  static withBuilder(): ForgotPassOTPRequest { return new ForgotPassOTPRequest(); }
+  bemail(email: string): ForgotPassOTPRequest { this.email = email; return this; }
 }
 
 export interface OAuthAuthorizeRequest {

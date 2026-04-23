@@ -19,6 +19,7 @@
 
 body.dark {
   --home-grey-2: #c6b5b5;
+  --home-grey-4: #888;
   --light-background: #333;
   --foreground: rgb(255, 255, 255);
   --foreground-hovered: #eee;
@@ -68,7 +69,7 @@ form {
   }
 
   .form_input_wrapper {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 
     .form_input {
       border: 1px solid var(--home-grey-3);
@@ -86,7 +87,7 @@ form {
 
       .form_legend {
         padding: 0 3px;
-        color: var(--home-grey-3);
+        color: var(--home-grey-4);
         font-size: 0.85rem;
       }
 
@@ -135,7 +136,8 @@ form {
         justify-content: end;
         display: flex;
         flex-wrap: wrap;
-        top: 0;
+        top: 50%;
+        transform: translateY(-65%);
         right: 0;
         padding-right: 8px;
 
@@ -146,12 +148,45 @@ form {
         }
       }
     }
+
+    .input_otp {
+      position: relative;
+      padding-right: 92px !important;
+
+      .otp_get-btn,
+      .otp_countdown {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-65%);
+        font-size: 0.8rem;
+      }
+
+      .otp_get-btn {
+        color: var(--home-orange-1);
+        background-color: transparent;
+        cursor: pointer;
+        padding: 4px 6px;
+        border-radius: 4px;
+
+        &:hover {
+          background-color: var(--background-hovered);
+        }
+      }
+
+      .otp_countdown {
+        color: var(--home-grey-4);
+      }
+    }
+  }
+
+  .form_input_wrapper:last-of-type {
+    margin-bottom: 15px;
   }
 
   .form_input_err {
     color: var(--home-red-2);
     font-size: 0.85rem;
-    padding-left: 16px;
   }
 
   .submit {
@@ -162,6 +197,7 @@ form {
     padding: 15px;
     border-radius: 8px;
     cursor: pointer;
+    margin-top: 10px;
 
     &:hover {
       background-color: #383737;

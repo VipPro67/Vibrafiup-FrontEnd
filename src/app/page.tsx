@@ -3,13 +3,12 @@
 import logo from '../../public/logo.png'
 import { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { AuthAPI } from '@/apis/auth.page.api'
-import { formatErrorResponse } from '@/util/general.helper'
 import '@/app/page.css'
 import Image from 'next/image'
 import LoginForm from '@/app-reused/form/login/main'
-// import LoginForm from '@/app-reused/form/login/main'
-// import RegisterForm from '@/app-reused/form/register/main'
+import ForgotPassForm from '@/app-reused/form/forgot-pass/main'
+import ThemeToggleButton from '@/app-reused/header/theme-toggle'
+import RegisterForm from '@/app-reused/form/register/main'
 
 export default function ReferralPage() {
   const formModes = useMemo<string[]>(() => ["login", "register", "forgot-pass"], []);
@@ -62,6 +61,7 @@ export default function ReferralPage() {
             <a href="/explore" className="menu_item explore">EXPORE</a>
           </div>
           <div className="home-buttons">
+            <ThemeToggleButton />
             <button className="get-apps">
               GET THE APP
             </button>
@@ -96,8 +96,8 @@ export default function ReferralPage() {
                 </div>
 
                 {formMode === formModes[0] && <LoginForm /> }
-                {/* {formMode === formModes[1] && <RegisterForm />} } */}
-                {formMode === formModes[2] && <></>}
+                {formMode === formModes[1] && <RegisterForm />}
+                {formMode === formModes[2] && <ForgotPassForm />}
               </div>
             </div>
             <FakeChart />

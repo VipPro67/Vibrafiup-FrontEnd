@@ -57,6 +57,26 @@
         }
 
         .home-buttons {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          .theme-toggle-btn {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--foreground);
+            background-color: transparent;
+            border: none;
+            border-radius: 999px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: var(--background-hovered);
+            }
+          }
 
           .get-apps {
             background-color: var(--foreground);
