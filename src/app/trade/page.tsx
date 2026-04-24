@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import Sidebar from '@/components/trading/Sidebar'
 import { TradingChart } from '@/components/trading/TradingChart'
 import { TradingPanel } from '@/components/trading/TradingPanel'
 import { TradingHistory } from '@/components/trading/TradingHistory'
@@ -17,6 +16,7 @@ import {
   Trade,
   TradingStats as TradingStatsType,
 } from '@/util/trading.mock'
+import '@/app/trade/page.css'
 
 const CANDLE_UPDATE_INTERVAL = 3000 // 3 seconds for demo
 const TRADE_SETTLEMENT_TIME = 10000 // 10 seconds for demo
@@ -107,20 +107,18 @@ export default function TradingPage() {
   }, [pendingSettlement])
 
   return (
-    <div className="flex h-screen bg-background">
-      {/* Sidebar */}
-      <Sidebar />
+    <main className="trading-main">
+      <div className="trading-container">
+        <h1 className="trading-title">Trading Contracts</h1>
 
-      {/* Main Content */}
-      <main className="flex-1 overflow-auto">
-        <div className="container mx-auto py-8">
-          <h1 className="text-3xl font-bold text-foreground mb-8">Trading Contracts</h1>
+        <div className="trading-layout-grid">
+          {/* Left Column - Chart and Panel */}
+          <div className="trading-content-left">
+            {/* Statistics */}
+            <TradingStats />
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Left Column - Chart and Panel */}
-            <div className="lg:col-span-2 space-y-6">
             {/* Chart */}
-            <div className="rounded-lg bg-white p-6 shadow-lg">
+            <div className="trading-chart-card">
               <TradingChart candles={candles} currentPrice={currentPrice} />
             </div>
 
@@ -134,16 +132,12 @@ export default function TradingPage() {
           </div>
 
           {/* Right Column - Stats and History */}
-          <div className="space-y-6">
-            {/* Statistics */}
-            <TradingStats />
-
-              {/* Trading History */}
-              <TradingHistory trades={trades} />
-            </div>
+          <div className="trading-content-right">
+            {/* Trading History */}
+            <TradingHistory trades={trades} />
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   )
 }

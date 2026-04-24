@@ -1,0 +1,187 @@
+.trade-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 70px;
+  min-width: 70px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--home-grey-2);
+  background-color: var(--background);
+  transition: width 0.3s ease;
+  transition-delay: 0.1s;
+  overflow: hidden;
+  z-index: 1001;
+}
+
+.trade-sidebar:hover {
+  width: 260px;
+  min-width: 260px;
+}
+
+.trade-sidebar_header {
+  padding: 20px 12px;
+  border-bottom: 1px solid var(--home-grey-2);
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+}
+
+.trade-sidebar_title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--foreground);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  white-space: nowrap;
+}
+
+.trade-sidebar:hover .trade-sidebar_title {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.trade-sidebar_nav {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 12px 10px;
+}
+
+.trade-sidebar_bottom {
+  padding: 12px 10px;
+  border-top: 1px solid var(--home-grey-2);
+  overflow-x: hidden;
+}
+
+.trade-sidebar_link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  color: var(--home-grey-4);
+  margin-bottom: 6px;
+  width: 100%;
+}
+
+.trade-sidebar_link:hover {
+  background-color: var(--background-hovered);
+  color: var(--foreground);
+}
+
+.trade-sidebar_link.active {
+  background-color: var(--home-orange-1);
+  color: #fff;
+}
+
+.trade-sidebar_icon {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+}
+
+.trade-sidebar_label {
+  font-size: 0.92rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.trade-sidebar:hover .trade-sidebar_label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.logo_name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--foreground);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  white-space: nowrap;
+}
+
+.trade-sidebar:hover .logo_name {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.trade-sidebar:not(:hover) .trade-sidebar_link,
+.trade-sidebar:not(:hover) .trade-sidebar_theme-toggle {
+  justify-content: center;
+  gap: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.trade-sidebar:not(:hover) .trade-sidebar_label {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.trade-sidebar:not(:hover) .logo_name {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.trade-sidebar_theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  padding: 10px;
+  color: var(--home-grey-4);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.trade-sidebar_theme-toggle:hover {
+  background-color: var(--background-hovered);
+  color: var(--foreground);
+}
+
+.trade-sidebar_theme-toggle .theme-toggle-btn {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--home-grey-4);
+  border: none;
+  border-radius: 999px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.trade-sidebar_theme-toggle:hover .theme-toggle-btn {
+  color: var(--foreground);
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.trade-sidebar:hover ~ .sidebar-overlay {
+  opacity: 1;
+  visibility: visible;
+}

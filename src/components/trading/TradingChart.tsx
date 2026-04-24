@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createChart, ColorType, IChartApi, ISeriesApi, CandlestickSeries } from 'lightweight-charts'
 import { CandleData } from '@/util/trading.mock'
+import './TradingChart.css'
 
 interface TradingChartProps {
   candles: CandleData[]
@@ -13,15 +14,37 @@ export function TradingChart({ candles, currentPrice }: TradingChartProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const chartRef = useRef<IChartApi | null>(null)
   const candleSeriesRef = useRef<ISeriesApi<'Candlestick'> | null>(null)
+  const [isDark, setIsDark] = useState(false)
+
+  // Track theme changes
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.body.classList.contains('dark'))
+    }
+
+    checkTheme()
+
+    const observer = new MutationObserver(checkTheme)
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     if (!containerRef.current) return
 
+    const backgroundColor = isDark ? '#1a1a1a' : '#ffffff'
+    const textColor = isDark ? '#ffffff' : '#333333'
+    const gridColor = isDark ? '#374151' : '#f0f0f0'
+
     // Create chart
     const chart = createChart(containerRef.current, {
       layout: {
-        background: { type: ColorType.Solid, color: '#ffffff' },
-        textColor: '#333',
+        background: { type: ColorType.Solid, color: backgroundColor },
+        textColor: textColor,
       },
       width: containerRef.current.clientWidth,
       height: 400,
@@ -30,8 +53,8 @@ export function TradingChart({ candles, currentPrice }: TradingChartProps) {
         secondsVisible: false,
       },
       grid: {
-        horzLines: { color: '#f0f0f0' },
-        vertLines: { color: '#f0f0f0' },
+        horzLines: { color: gridColor },
+        vertLines: { color: gridColor },
       },
     })
 
@@ -72,34 +95,40 @@ export function TradingChart({ candles, currentPrice }: TradingChartProps) {
         chartRef.current.remove()
       }
     }
-  }, [])
+  }, [isDark])
 
   // Update chart with new candle data
   useEffect(() => {
     if (candleSeriesRef.current && candles.length > 0) {
       const lastCandle = candles[candles.length - 1]
-      candleSeriesRef.current.update(lastCandle)
+      candleSeriesRef.current.update({
+        time: lastCandle.time as any,
+        open: lastCandle.open,
+        high: lastCandle.high,
+        low: lastCandle.low,
+        close: lastCandle.close,
+      })
     }
   }, [candles])
 
   return (
-    <div className="w-full">
-      <div ref={containerRef} className="w-full" style={{ height: '400px' }} />
-      <div className="mt-4 flex items-center justify-between rounded-lg bg-gray-50 p-4">
+    <div className="trading-chart">
+      <div ref={containerRef} className="trading-chart_graph" style={{ height: '400px' }} />
+      <div className="trading-chart_info">
         <div>
-          <p className="text-sm text-gray-600">Current Price</p>
-          <p className="text-2xl font-bold text-gray-900">${currentPrice.toFixed(2)}</p>
+          <p className="trading-chart_label">Current Price</p>
+          <p className="trading-chart_price">${currentPrice.toFixed(2)}</p>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="trading-chart_metrics">
           <div>
-            <p className="text-sm text-gray-600">High</p>
-            <p className="text-lg font-semibold text-gray-900">
+            <p className="trading-chart_label">High</p>
+            <p className="trading-chart_metric-value">
               ${Math.max(...candles.map((c) => c.high)).toFixed(2)}
             </p>
           </div>
           <div>
-            <p className="text-sm text-gray-600">Low</p>
-            <p className="text-lg font-semibold text-gray-900">
+            <p className="trading-chart_label">Low</p>
+            <p className="trading-chart_metric-value">
               ${Math.min(...candles.map((c) => c.low)).toFixed(2)}
             </p>
           </div>

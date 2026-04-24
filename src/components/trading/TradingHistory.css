@@ -1,0 +1,121 @@
+.trade-history {
+  width: 100%;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid var(--home-grey-2);
+  background-color: var(--background);
+}
+
+.trade-history_title {
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.trade-history_empty {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trade-history_empty-text {
+  color: var(--home-grey-4);
+  text-align: center;
+}
+
+.trade-history_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--home-grey-1);
+}
+
+.trade-history_row:last-child {
+  border-bottom: none;
+}
+
+.trade-history_row-left {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+}
+
+.trade-history_icon {
+  width: 18px;
+  height: 18px;
+}
+
+.trade-history_icon.win {
+  color: #16a34a;
+}
+
+.trade-history_icon.loss {
+  color: #dc2626;
+}
+
+.trade-history_icon.open {
+  color: #2563eb;
+}
+
+.trade-history_trade-info {
+  flex: 1;
+}
+
+.trade-history_trade-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trade-history_direction {
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.trade-history_badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 2px 8px;
+  color: #fff;
+}
+
+.trade-history_badge.up {
+  background-color: #16a34a;
+}
+
+.trade-history_badge.down {
+  background-color: #dc2626;
+}
+
+.trade-history_time,
+.trade-history_percent {
+  font-size: 0.78rem;
+  color: var(--home-grey-4);
+}
+
+.trade-history_result {
+  text-align: right;
+}
+
+.trade-history_pending {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.trade-history_profit {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.trade-history_profit.win {
+  color: #16a34a;
+}
+
+.trade-history_profit.loss {
+  color: #dc2626;
+}

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { Toaster } from 'react-hot-toast';
+import ClientLayout from './ClientLayout'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -34,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="root font-sans antialiased">
-        {children}
+        <ClientLayout>{children}</ClientLayout>
         <Toaster position="top-right" reverseOrder={false} />
         <Analytics />
       </body>

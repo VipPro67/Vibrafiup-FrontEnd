@@ -1,0 +1,40 @@
+.trading-chart {
+  width: 100%;
+}
+
+.trading-chart_graph {
+  width: 100%;
+}
+
+.trading-chart_info {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  background-color: var(--home-grey-1);
+  padding: 12px;
+}
+
+.trading-chart_label {
+  font-size: 0.85rem;
+  color: var(--home-grey-4);
+}
+
+.trading-chart_price {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.trading-chart_metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.trading-chart_metric-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--foreground);
+}

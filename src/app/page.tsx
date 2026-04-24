@@ -7,8 +7,8 @@ import '@/app/page.css'
 import Image from 'next/image'
 import LoginForm from '@/app-reused/form/login/main'
 import ForgotPassForm from '@/app-reused/form/forgot-pass/main'
-import ThemeToggleButton from '@/app-reused/header/theme-toggle'
 import RegisterForm from '@/app-reused/form/register/main'
+import ThemeToggleButton from '@/app-reused/header/theme-toggle'
 
 export default function ReferralPage() {
   const formModes = useMemo<string[]>(() => ["login", "register", "forgot-pass"], []);
